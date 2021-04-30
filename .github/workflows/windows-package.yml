@@ -41,7 +41,6 @@ jobs:
           ls -l
           python setup.py develop
           py.test -v
-          
     - run: |
            python setup.py bdist_wheel
            python -m pip install twine
