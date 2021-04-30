@@ -41,11 +41,13 @@ jobs:
           ls -l
           python setup.py develop
           py.test -v
-    - run: |
-           python setup.py bdist_wheel
-           python -m pip install twine
-           twine upload  dist/*
-      if: ${{ github.event_name == 'release' }}
+          
+    - if: ${{ github.event_name == 'release' }}
       env:      
             TWINE_USERNAME: __token__
             TWINE_PASSWORD: ${{ secrets.TWINE_PASSWORD }}
+      run: |
+           export COMPILER_PATH=/c/Miniconda/envs/test/Library/mingw-w64/bin/
+           python setup.py bdist_wheel
+           python -m pip install twine
+           twine upload  dist/*
